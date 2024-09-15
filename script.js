@@ -11,7 +11,7 @@ import { Pawn } from "./pawn.js"
             block.setAttribute('class', 'grid-item winblock')
             block.setAttribute('id', i)
             block.innerHTML = ''
-        } else if (i == 3 || i == 23) {
+        } else if (i == 3 || i == 23 || i == 11 || i == 15) {
             block.setAttribute('class', 'grid-item startblock')
             block.setAttribute('id', i)
             block.innerHTML = '♜'
@@ -25,11 +25,21 @@ import { Pawn } from "./pawn.js"
         board.appendChild(block)
     }
 
+    //default color of the starting pawns
+    document.getElementById('3').style.color = 'red'
+    document.getElementById('23').style.color = 'blue'
+    document.getElementById('11').style.color = 'purple'
+    document.getElementById('15').style.color = 'brown'
+
 })()
 
 //creating pawn instances
 let pawn1 = new Pawn(1)
 let pawn2 = new Pawn(2)
+let pawn3 = new Pawn(3)
+let pawn4 = new Pawn(4)
+
+//retreiving dice button
 let dice = document.querySelector('.dice')
 
 
@@ -42,9 +52,6 @@ const board_occupance = [
     0, 0, 0, 0, 0
 ];
 
-//default color of the starting pawns
-document.getElementById('3').style.color = 'orange'
-document.getElementById('23').style.color = 'blue'
 
 
 
@@ -52,7 +59,7 @@ document.getElementById('23').style.color = 'blue'
 dice.addEventListener('click', () => {
     //generating a random number for a dice value
     let randomnum = Math.floor(Math.random() * 8 + 1)
-    moveplayer(pawn2, randomnum)
+    moveplayer(dine(), randomnum)
 })
 
 
@@ -77,6 +84,8 @@ function moveplayer(pawn, randomnum) {
             startblock.innerHTML = ''
             pawn.atstart = false
             console.log(pawn);
+            console.log(board_occupance);
+
 
 
         }
@@ -104,6 +113,8 @@ function moveplayer(pawn, randomnum) {
         pawn.position = Number(sblock.id)
         pawn.count = pawn.count + randomnum
         console.log(pawn);
+        console.log(board_occupance);
+
 
     }
     //if the next postion is occupied
@@ -112,3 +123,29 @@ function moveplayer(pawn, randomnum) {
     }
 }
 
+
+//implemnt dine logic
+let count = 1
+let dineText = document.querySelector('.dine')
+dineText.innerHTML = 'Player 1 Turn'
+
+function dine() {
+    switch (count) {
+        case 1:
+            count = 2
+            dineText.innerHTML = 'Player 2 Turn'
+            return pawn1
+        case 2:
+            count = 3
+            dineText.innerHTML = 'Player 3 Turn'
+            return pawn2
+        case 3:
+            count = 4
+            dineText.innerHTML = 'Player 4 Turn'
+            return pawn3
+        case 4:
+            count = 1
+            dineText.innerHTML = 'Player 1 Turn'
+            return pawn4
+    }
+}
