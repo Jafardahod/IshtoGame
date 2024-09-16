@@ -18,10 +18,10 @@ export class Pawn {
             return 'blue'
         }
         else if(this.player == 3){
-            return 'purple'
+            return 'chartreuse'
         }
         else if(this.player == 4){
-            return 'brown'
+            return 'yellow'
         }
     }
     path(){

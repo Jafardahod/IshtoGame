@@ -27,9 +27,9 @@ import { Pawn } from "./pawn.js"
 
     //default color of the starting pawns
     document.getElementById('3').style.color = 'red'
-    document.getElementById('23').style.color = 'purple'
     document.getElementById('11').style.color = 'blue'
-    document.getElementById('15').style.color = 'brown'
+    document.getElementById('23').style.color = 'chartreuse'
+    document.getElementById('15').style.color = 'yellow'
 
 })()
 
