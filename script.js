@@ -27,8 +27,8 @@ import { Pawn } from "./pawn.js"
 
     //default color of the starting pawns
     document.getElementById('3').style.color = 'red'
-    document.getElementById('23').style.color = 'blue'
-    document.getElementById('11').style.color = 'purple'
+    document.getElementById('23').style.color = 'purple'
+    document.getElementById('11').style.color = 'blue'
     document.getElementById('15').style.color = 'brown'
 
 })()
@@ -74,25 +74,22 @@ function moveplayer(pawn, randomnum) {
 
 
         //if the next postion is not occupied
-        if (board_occupance[Number(sblock.id) - 1] == 0) {
-            board_occupance[Number(sblock.id) - 1] = 1
-            sblock.innerHTML = '♜'
-            sblock.style.color = pawn.color
-            pawn.prev_positon = pawn.path[pawn.count]
-            pawn.count = pawn.count + randomnum
-            pawn.position = Number(sblock.id)
-            startblock.innerHTML = ''
-            pawn.atstart = false
-            console.log(pawn);
-            console.log(board_occupance);
 
-
-
+        if (board_occupance[Number(sblock.id) - 1] !== pawn.player) {
+            kill(board_occupance[Number(sblock.id) - 1])
         }
-        //if the next position is occupied
-        else {
-            //do something
-        }
+        board_occupance[Number(sblock.id) - 1] = pawn.player
+        board_occupance[pawn.path[0] - 1] = 0
+        sblock.innerHTML = '♜'
+        sblock.style.color = pawn.color
+        pawn.prev_positon = pawn.path[pawn.count]
+        pawn.count = pawn.count + randomnum
+        pawn.position = Number(sblock.id)
+        startblock.innerHTML = ''
+        pawn.atstart = false
+        console.log(pawn);
+        console.log(board_occupance);
+        
         return
 
     }
@@ -103,24 +100,20 @@ function moveplayer(pawn, randomnum) {
     let prevblock = document.getElementById(pawn.path[pawn.count])
 
     //if the next postion is not occupied
-    if (board_occupance[Number(sblock.id) - 1] == 0) {
-        board_occupance[Number(sblock.id) - 1] = 1
-        board_occupance[Number(prevblock.id) - 1] = 0
-        prevblock.innerHTML = ''
-        sblock.innerHTML = '♜'
-        sblock.style.color = pawn.color
-        pawn.prev_positon = pawn.path[pawn.count]
-        pawn.position = Number(sblock.id)
-        pawn.count = pawn.count + randomnum
-        console.log(pawn);
-        console.log(board_occupance);
-
-
+    if (board_occupance[Number(sblock.id) - 1] !== pawn.player) {
+        kill(board_occupance[Number(sblock.id) - 1])
     }
-    //if the next postion is occupied
-    else {
-        //do something
-    }
+    board_occupance[Number(sblock.id) - 1] = pawn.player
+    board_occupance[Number(prevblock.id) - 1] = 0
+    prevblock.innerHTML = ''
+    sblock.innerHTML = '♜'
+    sblock.style.color = pawn.color
+    pawn.prev_positon = pawn.path[pawn.count]
+    pawn.position = Number(sblock.id)
+    pawn.count = pawn.count + randomnum
+    console.log(pawn);
+    console.log(board_occupance);
+    
 }
 
 
@@ -148,4 +141,40 @@ function dine() {
             dineText.innerHTML = 'Player 1 Turn'
             return pawn4
     }
+}
+
+
+//Impleted Kill Functionality
+let kill = (occupiedplayer) => {
+    switch (occupiedplayer) {
+        case 1:
+            reset(pawn1)
+            console.log('killed Player:', occupiedplayer);
+
+            break;
+        case 2:
+            reset(pawn2)
+            console.log('killed', occupiedplayer);
+            break;
+        case 3:
+            reset(pawn3)
+            console.log('killed', occupiedplayer);
+            break;
+        case 4:
+            reset(pawn4)
+            console.log('killed', occupiedplayer);
+            break;
+        default:
+            break;
+    }
+}
+
+//This function resets the pawns position after it has been killed
+function reset(pawn) {
+    document.getElementById(pawn.path[0]).innerHTML = '♜'
+    pawn.count = 0
+    pawn.position = 3
+    pawn.prev_positon = null
+    pawn.atstart = true
+    board_occupance[pawn.path[0] - 1] = pawn.player
 }
