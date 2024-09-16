@@ -19,7 +19,7 @@ import { Pawn } from "./pawn.js"
         else {
             block.setAttribute('class', 'grid-item')
             block.setAttribute('id', i)
-            block.innerHTML = i
+            // block.innerHTML = i
         }
 
         board.appendChild(block)

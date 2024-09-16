@@ -12,6 +12,10 @@ body {
     padding: 20px;
     background-color: #6947b2;
 }
+h1{
+    color: white;
+    font-size: 40px;
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -60,4 +64,10 @@ body {
 
 .dine{
     padding: 5px;
+}
+
+
+#4::before{
+    content: '↓';
+
 }
