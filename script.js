@@ -41,7 +41,7 @@ let pawn4 = new Pawn(4)
 
 //retreiving dice button
 let dice = document.querySelector('.dice')
-
+let number = document.querySelector('.number')
 
 // creating a board matrix array let board_occupance = Array.from({ length: 25 }, (v) => 0)
 const board_occupance = [
@@ -63,10 +63,12 @@ dice.addEventListener('click', () => {
 })
 
 
+
 //main move logic function
 function moveplayer(pawn, randomnum) {
     //if pawn is at start 
     if (pawn.atstart) {
+        number.innerHTML = randomnum
         console.log(randomnum);
         //retreiving the start and the next postion for the pawn
         let startblock = document.getElementById(pawn.path[0])
