@@ -8,16 +8,16 @@ import { Pawn } from "./pawn.js"
     for (let i = 1; i <= 25; i++) {
         let block = document.createElement('div')
         if (i == 13) {
-            block.setAttribute('class', 'grid-item winblock')
+            block.setAttribute('class', `grid-item winblock _${i}`)
             block.setAttribute('id', i)
             block.innerHTML = ''
         } else if (i == 3 || i == 23 || i == 11 || i == 15) {
-            block.setAttribute('class', 'grid-item startblock')
+            block.setAttribute('class', `grid-item startblock _${i}`)
             block.setAttribute('id', i)
             block.innerHTML = '♜'
         }
         else {
-            block.setAttribute('class', 'grid-item')
+            block.setAttribute('class', `grid-item _${i}`)
             block.setAttribute('id', i)
             // block.innerHTML = i
         }
@@ -26,10 +26,18 @@ import { Pawn } from "./pawn.js"
     }
 
     //default color of the starting pawns
-    document.getElementById('3').style.color = 'red'
-    document.getElementById('11').style.color = 'blue'
-    document.getElementById('23').style.color = 'chartreuse'
-    document.getElementById('15').style.color = 'yellow'
+    let startblockplayer1 = document.getElementById('3')
+    startblockplayer1.style.color = 'red'
+    startblockplayer1.style.background = 'repeating-radial-gradient(black, red 150px)'
+    let startblockplayer2 = document.getElementById('11')
+    startblockplayer2.style.color = 'blue'
+    startblockplayer2.style.background = 'repeating-radial-gradient(black, blue 150px)'
+    let startblockplayer3 = document.getElementById('23')
+    startblockplayer3.style.color = 'chartreuse'
+    startblockplayer3.style.background = 'repeating-radial-gradient(black, chartreuse 150px)'
+    let startblockplayer4 = document.getElementById('15')
+    startblockplayer4.style.color = 'yellow'
+    startblockplayer4.style.background = 'repeating-radial-gradient(black, yellow 150px)'
 
 })()
 
@@ -69,7 +77,6 @@ function moveplayer(pawn, randomnum) {
     //if pawn is at start 
     if (pawn.atstart) {
         number.innerHTML = randomnum
-        console.log(randomnum);
         //retreiving the start and the next postion for the pawn
         let startblock = document.getElementById(pawn.path[0])
         let sblock = document.getElementById(pawn.path[randomnum])
@@ -94,9 +101,8 @@ function moveplayer(pawn, randomnum) {
         
         return
 
-    }
-    console.log(randomnum);
-
+    }    
+    number.innerHTML = randomnum
     //retreiving the previous and the next postion for the pawn
     let sblock = document.getElementById(pawn.path[pawn.count + randomnum])
     let prevblock = document.getElementById(pawn.path[pawn.count])
@@ -174,6 +180,7 @@ let kill = (occupiedplayer) => {
 //This function resets the pawns position after it has been killed
 function reset(pawn) {
     document.getElementById(pawn.path[0]).innerHTML = '♜'
+    document.getElementById(pawn.path[0]).style.color = pawn.color
     pawn.count = 0
     pawn.position = 3
     pawn.prev_positon = null
