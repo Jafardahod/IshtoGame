@@ -66,8 +66,10 @@ const board_occupance = [
 //onlick function for every dice click 
 dice.addEventListener('click', () => {
     //generating a random number for a dice value
-    let randomnum = Math.floor(Math.random() * 8 + 1)
-    moveplayer(dine(), randomnum)
+    // let randomnum = Math.floor(Math.random() * 8 + 1)
+    let randomnum = diceRolledFunct()
+    changeKoda(randomnum)
+    // moveplayer(dine(), randomnum)
 })
 
 
@@ -98,10 +100,10 @@ function moveplayer(pawn, randomnum) {
         pawn.atstart = false
         console.log(pawn);
         console.log(board_occupance);
-        
+
         return
 
-    }    
+    }
     number.innerHTML = randomnum
     //retreiving the previous and the next postion for the pawn
     let sblock = document.getElementById(pawn.path[pawn.count + randomnum])
@@ -121,7 +123,7 @@ function moveplayer(pawn, randomnum) {
     pawn.count = pawn.count + randomnum
     console.log(pawn);
     console.log(board_occupance);
-    
+
 }
 
 
@@ -186,4 +188,129 @@ function reset(pawn) {
     pawn.prev_positon = null
     pawn.atstart = true
     board_occupance[pawn.path[0] - 1] = pawn.player
+}
+
+
+//function for rolling dice
+function diceRolledFunct() {
+    let randomGeneratedNo = Math.floor(Math.random() * 11 + 1)
+    let randomnumsList = [1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 4, 8]
+    let randomNum = randomnumsList[randomGeneratedNo]
+
+    console.log(randomnumsList.length);
+
+
+    // changeKoda(randomNum)
+
+    return randomNum
+
+}
+
+//funciton to change koda(dice) on diceroll event
+async function changeKoda(num) {
+    console.log(num);
+
+    let allkoda = document.querySelector('.dicerollgridcontainer')
+    let koda1 = allkoda.children[0]
+    let koda2 = allkoda.children[1]
+    let koda3 = allkoda.children[2]
+    let koda4 = allkoda.children[3]
+    let kodaElements = [koda1, koda2, koda3, koda4];
+
+
+    await showanimation(kodaElements)
+
+    moveplayer(dine(), num)
+
+    //rendering kodas(dice) according to the number
+    if (num === 1) {
+        clearPrevkoda(kodaElements);
+        appendImages(1, 3, 'front');
+        // appendImages(3, 'back');
+    } else if (num === 2) {
+        clearPrevkoda(kodaElements);
+        appendImages(2, 2, 'front');
+        // appendImages(2, 'back');
+    } else if (num === 3) {
+        clearPrevkoda(kodaElements);
+        appendImages(3, 1, 'front');
+        // appendImages(1, 'back');
+    } else if (num === 4) {
+        clearPrevkoda(kodaElements);
+        appendImages(4, 0, 'front');
+    } else if (num === 8) {
+        clearPrevkoda(kodaElements);
+        appendImages(0, 4, 'back');
+    }
+
+
+
+
+    function appendImages(frontnum, backnum, type) {
+
+
+        // let imgSrc = type === 'front' ? './assets/front.png' : './assets/back.png';
+        let frontimg = './assets/front.png'
+        let backimg = './assets/back.png'
+
+
+        for (let i = 0; i < frontnum; i++) {
+            console.log('from front');
+
+            let img = document.createElement('img');
+            img.setAttribute('class', 'diceItem');
+            img.setAttribute('src', frontimg);
+            kodaElements[i].appendChild(img);
+        }
+
+        for (let i = 3; i >= frontnum; i--) {
+            console.log('from back');
+            let img = document.createElement('img');
+            img.setAttribute('class', 'diceItem');
+            img.setAttribute('src', backimg);
+            kodaElements[i].appendChild(img);
+        }
+    }
+
+
+}
+
+
+//function to remove prev dice(kodas)
+function clearPrevkoda(kodaElements) {
+    while (kodaElements[0].firstChild) {
+        kodaElements[0].removeChild(kodaElements[0].firstChild);
+    }
+    while (kodaElements[1].firstChild) {
+        kodaElements[1].removeChild(kodaElements[1].firstChild);
+    }
+    while (kodaElements[2].firstChild) {
+        kodaElements[2].removeChild(kodaElements[2].firstChild);
+    }
+    while (kodaElements[3].firstChild) {
+        kodaElements[3].removeChild(kodaElements[3].firstChild);
+    }
+}
+
+
+
+//function to display animation before every turn
+function showanimation(kodaElements) {
+    return new Promise((resolve) => {
+        clearPrevkoda(kodaElements);
+
+        for (let i = 0; i < 4; i++) {
+            let img = document.createElement('img');
+            img.setAttribute('class', 'diceItem');
+            img.setAttribute('src', './assets/front.png');
+            kodaElements[i].appendChild(img);
+        }
+
+        kodaElements.forEach((element) => element.classList.add('rotate'));
+
+        setTimeout(() => {
+            kodaElements.forEach((element) => element.classList.remove('rotate'));
+            resolve();
+        }, 1000);
+    });
 }

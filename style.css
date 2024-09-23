@@ -1,125 +1,178 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #6947b2;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #6947b2;
 }
-h1{
-    color: white;
-    font-size: 40px;
+h1 {
+  color: white;
+  font-size: 40px;
 }
-h3{
-    color:  whitesmoke
+h3 {
+  color: whitesmoke;
 }
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 .header {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 .grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    /* gap: 10px; */
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  /* gap: 10px; */
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
 }
 .grid-item {
-    background: linear-gradient(45deg, black, #000000a3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 50px;
-    border: 1px solid white;
-    position: relative
-    /* border-radius: 8px; */
+  background: linear-gradient(45deg, black, #000000a3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 50px;
+  border: 1px solid white;
+  position: relative;
+  /* border-radius: 8px; */
 }
 
-.dice{
-    padding: 10px;
-    width: 300px;
-    height: 50px;
-    font-size: 20px;
-    color: white;
-    background-color: #9b6efc;
-    border: 6px inset white;
+.dice {
+  padding: 10px;
+  width: 300px;
+  height: 50px;
+  font-size: 20px;
+  color: white;
+  background-color: #9b6efc;
+  border: 6px inset white;
 }
 /* .startblock{
     background: repeating-radial-gradient(black, white 150px);
 } */
-.winblock{
-    background: repeating-radial-gradient(lime, #000000 99px);
+.winblock {
+  background: repeating-radial-gradient(lime, #000000 99px);
 }
 .content {
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-    margin-top: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-top: 40px;
 }
 
-.dine{
-    padding: 5px;
-    color: white;
+.dine {
+  padding: 5px;
+  color: white;
 }
 
-
-.number{
-    color: white;
-    font-size: 50px;
-    margin-bottom: 10px;
-    margin-top: 5px;
+.number {
+  color: white;
+  font-size: 50px;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
 
-._4::after{
-    content: "↓";
-    color: red !important;
-    position: absolute;
-    top: 15px;
-    left: 70px;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 0;
+._4::after {
+  content: "↓";
+  color: red !important;
+  position: absolute;
+  top: 15px;
+  left: 70px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
 }
 
-._6::after{
-    content: "→";
-    color: blue !important;
-    position: absolute;
-    top: -12px;
-    left: 27px;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 0;
+._6::after {
+  content: "→";
+  color: blue !important;
+  position: absolute;
+  top: -12px;
+  left: 27px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
 }
 
-._22::after{
-    content: "↑";
-    color: chartreuse !important;
-    position: absolute;
-    top: 10px;
-    left: 7px;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 0;
+._22::after {
+  content: "↑";
+  color: chartreuse !important;
+  position: absolute;
+  top: 10px;
+  left: 7px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
 }
 
-._20::after{
-    content: "←";
-    color: yellow !important;
-    position: absolute;
-    top: 45px;
-    left: 24px;
-    background-color: rgba(0, 0, 0, 0);
-    z-index: 0;
+._20::after {
+  content: "←";
+  color: yellow !important;
+  position: absolute;
+  top: 45px;
+  left: 24px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 0;
+}
+
+@media (max-width: 480px) {
+  ._4::after {
+    top: 6px;
+    left: 45px;
+  }
+  ._6::after {
+    top: -13px;
+    left: 18px;
+  }
+  ._22::after {
+    top: 4px;
+    left: 4px;
+  }
+  ._20::after {
+    top: 25px;
+    left: 15px;
+  }
+}
+
+.dicerollgridcontainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  width: 100%;
+  height: 100px;
+  max-width: 350px;
+  gap: 20px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  aspect-ratio: 1 / 1;
+}
+
+.grid-dice-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 50px;
+  position: relative;
+}
+
+.rotate {
+  animation: mymove 1s ease;
+}
+@keyframes mymove {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.diceItem {
+  width: 100%;
 }
